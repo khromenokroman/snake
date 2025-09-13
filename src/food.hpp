@@ -14,7 +14,7 @@ class Food {
      * @param cell_count Количество ячеек по одному измерению игрового поля
      */
     explicit Food(uint64_t cell_size, uint64_t cell_count);
-    ~Food() = default;
+    ~Food();
 
     /**
      * @brief Отрисовывает еду на игровом поле
@@ -38,10 +38,12 @@ class Food {
      */
     void generate_random_position();
 
+    Texture2D m_texture;       // 20
     Vector2 m_position;        // 8
     uint64_t m_cell_size = 0;  // 8
     uint64_t m_cell_count = 0; // 8
 
+    static_assert(sizeof m_texture == 20);
     static_assert(sizeof m_position == 8);
     static_assert(sizeof m_cell_size == 8);
     static_assert(sizeof m_cell_count == 8);

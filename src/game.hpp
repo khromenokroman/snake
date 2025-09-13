@@ -42,6 +42,6 @@ struct Game {
     Food m_food;       // 24
 
     static_assert(sizeof m_snake == 168);
+    static_assert(sizeof m_food == 48);
     static_assert(sizeof m_eat_sound == 40);
-    static_assert(sizeof m_food == 24);
 };

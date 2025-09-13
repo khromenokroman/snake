@@ -30,6 +30,17 @@ int main() {
         while (!WindowShouldClose()) {
             BeginDrawing();
 
+            // Рисуем клетчатый фон
+            for (int x = 0; x < CELL_COUNT; x++) {
+                for (int y = 0; y < CELL_COUNT; y++) {
+                    if ((x + y) % 2 == 0) {
+                        DrawRectangle(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Color{230, 255, 230, 255});
+                    } else {
+                        DrawRectangle(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Color{220, 245, 220, 255});
+                    }
+                }
+            }
+
             if (game.update() == StateGame::GAME_OVER) {
                 std::this_thread::sleep_for(std::chrono::seconds(3));
                 break;
@@ -42,9 +53,6 @@ int main() {
         CloseAudioDevice();
 
         CloseWindow();
-    } catch (GameOver const& ex) {
-        std::cerr << "Game over: " << ex.what() << std::endl;
-        CloseAudioDevice();
     } catch (std::exception const& ex) {
         std::cerr << "Error: " << ex.what() << std::endl;
         CloseAudioDevice();
