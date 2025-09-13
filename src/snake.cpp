@@ -35,11 +35,16 @@ void Snake::move() {
     if (std::chrono::duration_cast<std::chrono::milliseconds>(now - m_last_time).count() > m_interval_update) {
         m_body.pop_back();
         m_body.push_front(Vector2Add(m_body.at(0), m_direction));
-        if (m_body.at(0).x == -1 || m_body.at(0).x == m_cell_count){
-            throw GameOver("Game over");
+        if (m_body.at(0).x == -1 || m_body.at(0).x == m_cell_count) {
+            throw GameOver("Вышел за границу");
         }
-        if (m_body.at(0).y == -1 || m_body.at(0).y == m_cell_count){
-            throw GameOver("Game over");
+        if (m_body.at(0).y == -1 || m_body.at(0).y == m_cell_count) {
+            throw GameOver("Вышел за границу");
+        }
+        for (auto i = 2ull; i < m_body.size(); ++i) {
+            if (Vector2Equals(m_body[i], m_body.at(0))) {
+                throw GameOver("Врезался в себя");
+            }
         }
         m_last_time = now;
     }
