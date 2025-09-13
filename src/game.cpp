@@ -1,6 +1,7 @@
 #include "game.hpp"
 
-Game::Game(double interval_update, uint64_t cell_size, uint64_t cell_count) : m_snake{interval_update, cell_size}, m_food{cell_size, cell_count} {}
+Game::Game(double interval_update, uint64_t cell_size, uint64_t cell_count)
+    : m_snake{interval_update, cell_size, cell_count}, m_food{cell_size, cell_count} {}
 void Game::update() {
     check_catch(m_snake.head(), m_food.position());
     m_food.draw();

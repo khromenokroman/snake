@@ -7,9 +7,16 @@ enum class Direction : uint8_t { UP, DOWN, LEFT, RIGHT };
 enum class Placement : uint8_t { GOOD, BAD };
 enum class State : uint8_t { INCREASE, STABLE };
 
+struct SnakeEx : std::runtime_error {
+    using std::runtime_error::runtime_error;
+};
+struct GameOver final : SnakeEx {
+    using SnakeEx::SnakeEx;
+};
+
 class Snake {
    public:
-    explicit Snake(double interval_update, uint64_t cell_size);
+    explicit Snake(double interval_update, uint64_t cell_size, uint64_t cell_count);
     ~Snake() = default;
 
     void draw();
@@ -27,6 +34,7 @@ class Snake {
     std::chrono::steady_clock::time_point m_last_time; // 8
     double m_interval_update;                          // 8
     uint64_t m_cell_size = 0;                          // 8
+    uint64_t m_cell_count = 0;                         // 8
     State m_state{State::STABLE};                      // 1
 
     static_assert(sizeof m_body == 80);

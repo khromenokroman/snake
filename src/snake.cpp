@@ -1,6 +1,10 @@
 #include "snake.hpp"
-Snake::Snake(double interval_update, uint64_t cell_size)
-    : m_body{{6, 2}, {5, 2}, {4, 2}}, m_last_time{std::chrono::steady_clock::now()}, m_interval_update{interval_update}, m_cell_size{cell_size} {
+Snake::Snake(double interval_update, uint64_t cell_size, uint64_t cell_count)
+    : m_body{{6, 2}, {5, 2}, {4, 2}},
+      m_last_time{std::chrono::steady_clock::now()},
+      m_interval_update{interval_update},
+      m_cell_size{cell_size},
+      m_cell_count{cell_count} {
     change_direction(Direction::RIGHT);
 }
 void Snake::draw() {
@@ -31,6 +35,12 @@ void Snake::move() {
     if (std::chrono::duration_cast<std::chrono::milliseconds>(now - m_last_time).count() > m_interval_update) {
         m_body.pop_back();
         m_body.push_front(Vector2Add(m_body.at(0), m_direction));
+        if (m_body.at(0).x == -1 || m_body.at(0).x == m_cell_count){
+            throw GameOver("Game over");
+        }
+        if (m_body.at(0).y == -1 || m_body.at(0).y == m_cell_count){
+            throw GameOver("Game over");
+        }
         m_last_time = now;
     }
 }
