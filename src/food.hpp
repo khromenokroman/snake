@@ -4,6 +4,7 @@
 class Food {
    public:
     explicit Food(uint64_t cell_size, uint64_t cell_count);
+    ~Food() = default;
 
     void draw();
     Vector2 position() const;
