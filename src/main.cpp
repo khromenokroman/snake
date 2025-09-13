@@ -1,3 +1,5 @@
+#include <bits/this_thread_sleep.h>
+
 #include <chrono>
 #include <deque>
 #include <iostream>
@@ -11,22 +13,34 @@ static constexpr double UPDATE_INTERVAL = 200;
 static constexpr int FPS = 60;
 
 int main() {
-    InitWindow(CELL_SIZE * CELL_COUNT, CELL_SIZE * CELL_COUNT, "Snake");
-    SetTargetFPS(FPS);
+    try {
+        InitAudioDevice();
+        InitWindow(CELL_SIZE * CELL_COUNT, CELL_SIZE * CELL_COUNT, "Snake");
+        SetTargetFPS(FPS);
 
-    Game game(UPDATE_INTERVAL, CELL_SIZE, CELL_COUNT);
+        Game game(UPDATE_INTERVAL, CELL_SIZE, CELL_COUNT);
 
-    while (!WindowShouldClose()) {
-        BeginDrawing();
+        while (!WindowShouldClose()) {
+            BeginDrawing();
 
-        game.update();
+            if (game.update() == StateGame::GAME_OVER) {
+                std::this_thread::sleep_for(std::chrono::seconds(3));
+                break;
+            }
 
-        ClearBackground(WHITE);
+            ClearBackground(WHITE);
 
-        EndDrawing();
+            EndDrawing();
+        }
+        CloseAudioDevice();
+
+        CloseWindow();
+    } catch (GameOver const& ex) {
+        std::cerr << "Game over: " << ex.what() << std::endl;
+        CloseAudioDevice();
+    } catch (std::exception const& ex) {
+        std::cerr << "Error: " << ex.what() << std::endl;
+        CloseAudioDevice();
     }
-
-    CloseWindow();
-
     return 0;
 }

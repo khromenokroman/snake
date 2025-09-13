@@ -5,8 +5,11 @@ Snake::Snake(double interval_update, uint64_t cell_size, uint64_t cell_count)
       m_interval_update{interval_update},
       m_cell_size{cell_size},
       m_cell_count{cell_count} {
+    m_game_over_sound = LoadSound("sounds/game_over.wav");
+
     change_direction(Direction::RIGHT);
 }
+Snake::~Snake() { UnloadSound(m_game_over_sound); }
 void Snake::draw() {
     process_keymap_user();
     if (m_state == State::INCREASE) {
@@ -36,20 +39,24 @@ void Snake::move() {
         m_body.pop_back();
         m_body.push_front(Vector2Add(m_body.at(0), m_direction));
         if (m_body.at(0).x == -1 || m_body.at(0).x == m_cell_count) {
-            throw GameOver("Вышел за границу");
+            PlaySound(m_game_over_sound);
+            m_game_over = true;
         }
         if (m_body.at(0).y == -1 || m_body.at(0).y == m_cell_count) {
-            throw GameOver("Вышел за границу");
+            PlaySound(m_game_over_sound);
+            m_game_over = true;
         }
         for (auto i = 2ull; i < m_body.size(); ++i) {
             if (Vector2Equals(m_body[i], m_body.at(0))) {
-                throw GameOver("Врезался в себя");
+                PlaySound(m_game_over_sound);
+                m_game_over = true;
             }
         }
         m_last_time = now;
         m_state_keycap = StateKeyCap::UP;
     }
 }
+bool Snake::game_over() const { return m_game_over; }
 void Snake::change_direction(Direction direction) {
     switch (direction) {
         case Direction::UP:

@@ -18,12 +18,13 @@ struct GameOver final : SnakeEx {
 class Snake {
    public:
     explicit Snake(double interval_update, uint64_t cell_size, uint64_t cell_count);
-    ~Snake() = default;
+    ~Snake();
 
     void draw();
     Vector2 head() const;
     Placement check_food_placement(Vector2 const& food) const;
     void change_state(State state);
+    bool game_over() const;
 
    private:
     void move();
@@ -31,6 +32,7 @@ class Snake {
     void process_keymap_user();
 
     std::deque<Vector2> m_body;                        // 80
+    Sound m_game_over_sound;                           // 40
     Vector2 m_direction;                               // 8
     std::chrono::steady_clock::time_point m_last_time; // 8
     double m_interval_update;                          // 8
@@ -38,8 +40,10 @@ class Snake {
     uint64_t m_cell_count = 0;                         // 8
     State m_state{State::STABLE};                      // 1
     StateKeyCap m_state_keycap{StateKeyCap::UP};       // 1
+    bool m_game_over{false};                           // 1
 
     static_assert(sizeof m_body == 80);
+    static_assert(sizeof m_game_over_sound == 40);
     static_assert(sizeof m_direction == 8);
     static_assert(sizeof m_last_time == 8);
 };
