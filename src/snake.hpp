@@ -37,7 +37,7 @@ class Snake {
      * @param cell_size Размер ячейки игрового поля в пикселях
      * @param cell_count Количество ячеек по одному измерению игрового поля
      */
-    explicit Snake(double interval_update, uint64_t cell_size, uint64_t cell_count);
+    explicit Snake(double interval_update, uint64_t cell_size, uint64_t cell_count, uint64_t offset);
     ~Snake();
 
     /**
@@ -99,6 +99,7 @@ class Snake {
     double m_interval_update;                          // 8
     uint64_t m_cell_size = 0;                          // 8
     uint64_t m_cell_count = 0;                         // 8
+    uint64_t m_offset = 0;                             // 8
     State m_state{State::STABLE};                      // 1
     StateKeyCap m_state_keycap{StateKeyCap::UP};       // 1
     bool m_game_over{false};                           // 1

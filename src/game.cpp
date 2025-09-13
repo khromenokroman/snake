@@ -1,8 +1,8 @@
 #include "game.hpp"
 
-Game::Game(double interval_update, uint64_t cell_size, uint64_t cell_count)
-    : m_snake{interval_update, cell_size, cell_count}, m_food{cell_size, cell_count} {
-    m_eat_sound = LoadSound("/usr/share/sounds/eat.wav");
+Game::Game(double interval_update, uint64_t cell_size, uint64_t cell_count, uint64_t offset)
+    : m_snake{interval_update, cell_size, cell_count, offset}, m_food{cell_size, cell_count, offset} {
+    m_eat_sound = LoadSound("/usr/share/snake/sounds/eat.wav");
 }
 
 Game::~Game() { UnloadSound(m_eat_sound); }
@@ -31,10 +31,3 @@ void Game::check_catch(Vector2 head_snake, Vector2 food) {
     }
 }
 uint64_t Game::get_score() const { return m_score; }
-
-void Game::draw_score() const {
-    char score_text[32];
-    sprintf(score_text, "Score: %lu", m_score);
-
-    DrawText(score_text, 10, 10, 20, BLACK);
-}

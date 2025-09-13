@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.23)
 
 project(snake
-        VERSION 0.0.1.0
+        VERSION 0.0.2.0
         LANGUAGES CXX
         HOMEPAGE_URL "https://github.com/khromenokroman/snake"
 )

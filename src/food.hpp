@@ -13,7 +13,7 @@ class Food {
      * @param cell_size Размер ячейки игрового поля в пикселях
      * @param cell_count Количество ячеек по одному измерению игрового поля
      */
-    explicit Food(uint64_t cell_size, uint64_t cell_count);
+    explicit Food(uint64_t cell_size, uint64_t cell_count, uint64_t offset);
     ~Food();
 
     /**
@@ -42,6 +42,7 @@ class Food {
     Vector2 m_position;        // 8
     uint64_t m_cell_size = 0;  // 8
     uint64_t m_cell_count = 0; // 8
+    uint64_t m_offset = 0;     // 8
 
     static_assert(sizeof m_texture == 20);
     static_assert(sizeof m_position == 8);

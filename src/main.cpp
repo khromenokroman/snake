@@ -19,50 +19,51 @@ static constexpr double UPDATE_INTERVAL = 200;
 /** @brief Количество кадров в секунду */
 static constexpr int FPS = 60;
 
+static constexpr uint64_t OFFSET = 60;
+
 int main() {
     try {
         InitAudioDevice();
-        InitWindow(CELL_SIZE * CELL_COUNT, CELL_SIZE * CELL_COUNT, "Snake");
+        InitWindow(2 * OFFSET + CELL_SIZE * CELL_COUNT, 2 * OFFSET + CELL_SIZE * CELL_COUNT, "Snake");
         SetTargetFPS(FPS);
 
-        Game game(UPDATE_INTERVAL, CELL_SIZE, CELL_COUNT);
+        Game game(UPDATE_INTERVAL, CELL_SIZE, CELL_COUNT, OFFSET);
 
         while (!WindowShouldClose()) {
             BeginDrawing();
 
             ClearBackground(WHITE);
 
+            DrawText("Old Snake! Start the game!", OFFSET - 5, 15, 40, BLACK);
+
             // Рисуем клетчатый фон
-            for (int x = 0; x < CELL_COUNT; x++) {
-                for (int y = 0; y < CELL_COUNT; y++) {
+            for (int x = 0; x < CELL_COUNT; ++x) {
+                for (int y = 0; y < CELL_COUNT; ++y) {
                     if ((x + y) % 2 == 0) {
-                        DrawRectangle(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Color{230, 255, 230, 255});
+                        DrawRectangle(OFFSET + x * CELL_SIZE, OFFSET + y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Color{230, 255, 230, 255});
                     } else {
-                        DrawRectangle(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Color{220, 245, 220, 255});
+                        DrawRectangle(OFFSET + x * CELL_SIZE, OFFSET + y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Color{220, 245, 220, 255});
                     }
                 }
             }
 
+            DrawRectangleLinesEx(Rectangle{OFFSET - 5, OFFSET - 5, CELL_SIZE * CELL_COUNT + 10, CELL_SIZE * CELL_COUNT + 10}, 5, BLACK);
+
             if (game.update() == StateGame::GAME_OVER) {
-                char final_score[64];
-                sprintf(final_score, "Game Over! Current score: %lu", game.get_score());
-
-                int text_width = MeasureText(final_score, 30);
-                DrawText(final_score, 0, 0, 40, BLACK);
-
-                EndDrawing();
                 std::this_thread::sleep_for(std::chrono::seconds(3));
                 break;
             }
+            DrawText(TextFormat("Score: %lu", game.get_score()), OFFSET - 5, OFFSET + CELL_SIZE * CELL_COUNT + 10, 40, BLACK);
 
             EndDrawing();
         }
         CloseAudioDevice();
 
         CloseWindow();
+        return 0;
     } catch (std::exception const& ex) {
         std::cerr << "Error: " << ex.what() << std::endl;
         CloseAudioDevice();
+        CloseWindow();
     }
-    return 0;
 }

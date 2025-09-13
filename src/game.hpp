@@ -22,7 +22,7 @@ class Game {
      * @param cell_size Размер ячейки игрового поля в пикселях
      * @param cell_count Количество ячеек по одному измерению игрового поля
      */
-    explicit Game(double interval_update, uint64_t cell_size, uint64_t cell_count);
+    explicit Game(double interval_update, uint64_t cell_size, uint64_t cell_count, uint64_t offset);
     ~Game();
 
     /**
@@ -30,11 +30,6 @@ class Game {
      * @return Текущее состояние игры
      */
     StateGame update();
-
-    /**
-     * @brief Отрисовывает счет на экране
-     */
-    void draw_score() const;
 
     /**
      * @brief Возвращает текущий счет игры
@@ -50,12 +45,12 @@ class Game {
      */
     void check_catch(Vector2 head_snake, Vector2 food);
 
-    Snake m_snake;        // 168
+    Snake m_snake;        // 176
+    Food m_food;          // 56
     Sound m_eat_sound;    // 40
-    Food m_food;          // 24
     uint64_t m_score = 0; // 8
 
-    static_assert(sizeof m_snake == 168);
-    static_assert(sizeof m_food == 48);
+    static_assert(sizeof m_snake == 176);
     static_assert(sizeof m_eat_sound == 40);
+    static_assert(sizeof m_food == 56);
 };
