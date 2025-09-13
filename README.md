@@ -23,8 +23,6 @@
 
 ## Сборка проекта
 
-### На Linux/macOS:
-
 ```bash
 # Клонирование репозитория
 git clone https://github.com/khromenokroman/snake.git
@@ -37,6 +35,10 @@ cd build
 # Сборка проекта
 cmake ..
 make
+
+# Сборка deb пакетв
+cmake ..
+make package
 
 # Запуск игры
 ./src/snake
