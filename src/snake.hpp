@@ -6,6 +6,7 @@
 enum class Direction : uint8_t { UP, DOWN, LEFT, RIGHT };
 enum class Placement : uint8_t { GOOD, BAD };
 enum class State : uint8_t { INCREASE, STABLE };
+enum class StateKeyCap : uint8_t { UP, DOWN };
 
 struct SnakeEx : std::runtime_error {
     using std::runtime_error::runtime_error;
@@ -36,6 +37,7 @@ class Snake {
     uint64_t m_cell_size = 0;                          // 8
     uint64_t m_cell_count = 0;                         // 8
     State m_state{State::STABLE};                      // 1
+    StateKeyCap m_state_keycap{StateKeyCap::UP};       // 1
 
     static_assert(sizeof m_body == 80);
     static_assert(sizeof m_direction == 8);

@@ -47,6 +47,7 @@ void Snake::move() {
             }
         }
         m_last_time = now;
+        m_state_keycap = StateKeyCap::UP;
     }
 }
 void Snake::change_direction(Direction direction) {
@@ -68,16 +69,27 @@ void Snake::change_direction(Direction direction) {
     }
 }
 void Snake::process_keymap_user() {
+    if (m_state_keycap == StateKeyCap::DOWN) {
+        return;
+    }
+
+    bool key_was_pressed = false;
+
     if (IsKeyDown(KEY_UP) && m_direction.y != 1) {
         change_direction(Direction::UP);
-    }
-    if (IsKeyDown(KEY_DOWN) && m_direction.y != -1) {
+        key_was_pressed = true;
+    } else if (IsKeyDown(KEY_DOWN) && m_direction.y != -1) {
         change_direction(Direction::DOWN);
-    }
-    if (IsKeyDown(KEY_LEFT) && m_direction.x != 1) {
+        key_was_pressed = true;
+    } else if (IsKeyDown(KEY_LEFT) && m_direction.x != 1) {
         change_direction(Direction::LEFT);
-    }
-    if (IsKeyDown(KEY_RIGHT) && m_direction.x != -1) {
+        key_was_pressed = true;
+    } else if (IsKeyDown(KEY_RIGHT) && m_direction.x != -1) {
         change_direction(Direction::RIGHT);
+        key_was_pressed = true;
+    }
+
+    if (key_was_pressed) {
+        m_state_keycap = StateKeyCap::DOWN;
     }
 }
