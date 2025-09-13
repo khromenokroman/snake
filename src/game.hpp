@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include "food.hpp"
 #include "snake.hpp"
 

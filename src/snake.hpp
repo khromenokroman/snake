@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <cstdint>
 #include <deque>
 #include <raylib-cpp.hpp>
 
