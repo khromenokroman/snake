@@ -34,7 +34,7 @@ uint64_t Game::get_score() const { return m_score; }
 
 void Game::draw_score() const {
     char score_text[32];
-    sprintf(score_text, "Счет: %lu", m_score);
+    sprintf(score_text, "Score: %lu", m_score);
 
     DrawText(score_text, 10, 10, 20, BLACK);
 }

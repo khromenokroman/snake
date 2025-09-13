@@ -48,7 +48,7 @@ int main() {
                 sprintf(final_score, "Game Over! Current score: %lu", game.get_score());
 
                 int text_width = MeasureText(final_score, 30);
-                DrawText(final_score, (CELL_SIZE * CELL_COUNT - text_width) / 2, (CELL_SIZE * CELL_COUNT) / 2 - 15, 30, RED);
+                DrawText(final_score, 0, 0, 40, BLACK);
 
                 EndDrawing();
                 std::this_thread::sleep_for(std::chrono::seconds(3));
