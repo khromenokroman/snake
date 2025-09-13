@@ -7,9 +7,16 @@
 #include "game.hpp"
 #include "raylib-cpp.hpp"
 
+/** @brief Размер ячейки игрового поля в пикселях */
 static constexpr uint64_t CELL_SIZE = 30;
+
+/** @brief Количество ячеек по одному измерению игрового поля */
 static constexpr uint64_t CELL_COUNT = 25;
+
+/** @brief Интервал обновления положения змейки в миллисекундах */
 static constexpr double UPDATE_INTERVAL = 200;
+
+/** @brief Количество кадров в секунду */
 static constexpr int FPS = 60;
 
 int main() {
