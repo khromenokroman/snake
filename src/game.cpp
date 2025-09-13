@@ -27,5 +27,14 @@ void Game::check_catch(Vector2 head_snake, Vector2 food) {
             m_food.move_new_position();
         }
         m_snake.change_state(State::INCREASE);
+        ++m_score;
     }
+}
+uint64_t Game::get_score() const { return m_score; }
+
+void Game::draw_score() const {
+    char score_text[32];
+    sprintf(score_text, "Счет: %lu", m_score);
+
+    DrawText(score_text, 10, 10, 20, BLACK);
 }

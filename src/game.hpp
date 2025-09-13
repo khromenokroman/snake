@@ -14,7 +14,8 @@ enum class StateGame : uint8_t { RUNNING, GAME_OVER };
  * Этот класс координирует взаимодействие между змейкой и едой,
  * обрабатывает логику игры и управляет звуковыми эффектами
  */
-struct Game {
+class Game {
+   public:
     /**
      * @brief Конструктор игры
      * @param interval_update Интервал обновления положения змейки в миллисекундах
@@ -31,15 +32,28 @@ struct Game {
     StateGame update();
 
     /**
+     * @brief Отрисовывает счет на экране
+     */
+    void draw_score() const;
+
+    /**
+     * @brief Возвращает текущий счет игры
+     * @return Текущий счет
+     */
+    uint64_t get_score() const;
+
+   private:
+    /**
      * @brief Проверяет, съела ли змейка еду
      * @param head_snake Координаты головы змейки
      * @param food Координаты еды
      */
     void check_catch(Vector2 head_snake, Vector2 food);
 
-    Snake m_snake;     // 168
-    Sound m_eat_sound; // 40
-    Food m_food;       // 24
+    Snake m_snake;        // 168
+    Sound m_eat_sound;    // 40
+    Food m_food;          // 24
+    uint64_t m_score = 0; // 8
 
     static_assert(sizeof m_snake == 168);
     static_assert(sizeof m_food == 48);

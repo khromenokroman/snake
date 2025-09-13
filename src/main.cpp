@@ -30,6 +30,8 @@ int main() {
         while (!WindowShouldClose()) {
             BeginDrawing();
 
+            ClearBackground(WHITE);
+
             // Рисуем клетчатый фон
             for (int x = 0; x < CELL_COUNT; x++) {
                 for (int y = 0; y < CELL_COUNT; y++) {
@@ -42,11 +44,16 @@ int main() {
             }
 
             if (game.update() == StateGame::GAME_OVER) {
+                char final_score[64];
+                sprintf(final_score, "Game Over! Current score: %lu", game.get_score());
+
+                int text_width = MeasureText(final_score, 30);
+                DrawText(final_score, (CELL_SIZE * CELL_COUNT - text_width) / 2, (CELL_SIZE * CELL_COUNT) / 2 - 15, 30, RED);
+
+                EndDrawing();
                 std::this_thread::sleep_for(std::chrono::seconds(3));
                 break;
             }
-
-            ClearBackground(WHITE);
 
             EndDrawing();
         }
