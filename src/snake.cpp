@@ -5,7 +5,7 @@ Snake::Snake(double interval_update, uint64_t cell_size, uint64_t cell_count)
       m_interval_update{interval_update},
       m_cell_size{cell_size},
       m_cell_count{cell_count} {
-    m_game_over_sound = LoadSound("sounds/game_over.wav");
+    m_game_over_sound = LoadSound("/usr/share/sounds/game_over.wav");
 
     change_direction(Direction::RIGHT);
 }

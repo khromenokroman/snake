@@ -2,7 +2,7 @@
 
 Game::Game(double interval_update, uint64_t cell_size, uint64_t cell_count)
     : m_snake{interval_update, cell_size, cell_count}, m_food{cell_size, cell_count} {
-    m_eat_sound = LoadSound("sounds/eat.wav");
+    m_eat_sound = LoadSound("/usr/share/sounds/eat.wav");
 }
 
 Game::~Game() { UnloadSound(m_eat_sound); }

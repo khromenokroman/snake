@@ -1,7 +1,7 @@
 #include "food.hpp"
 
 Food::Food(uint64_t cell_size, uint64_t cell_count) : m_position{0, 0}, m_cell_size{cell_size}, m_cell_count{cell_count} {
-    Image food_image = LoadImage("bitmaps/food.png");
+    Image food_image = LoadImage("/usr/share/bitmaps/food.png");
     ImageResize(&food_image, m_cell_size, m_cell_size);
     m_texture = LoadTextureFromImage(food_image);
     UnloadImage(food_image);
