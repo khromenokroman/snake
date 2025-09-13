@@ -4,7 +4,9 @@ Game::Game(double interval_update, uint64_t cell_size, uint64_t cell_count)
     : m_snake{interval_update, cell_size, cell_count}, m_food{cell_size, cell_count} {
     m_eat_sound = LoadSound("sounds/eat.wav");
 }
+
 Game::~Game() { UnloadSound(m_eat_sound); }
+
 StateGame Game::update() {
     if (m_snake.game_over()) {
         return StateGame::GAME_OVER;
@@ -16,6 +18,7 @@ StateGame Game::update() {
 
     return StateGame::RUNNING;
 }
+
 void Game::check_catch(Vector2 head_snake, Vector2 food) {
     if (Vector2Equals(head_snake, food)) {
         PlaySound(m_eat_sound);

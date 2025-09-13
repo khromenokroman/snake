@@ -4,7 +4,7 @@ Food::Food(uint64_t cell_size, uint64_t cell_count) : m_position{0, 0}, m_cell_s
     generate_random_position();
 }
 
-void Food::draw() { DrawRectangle(m_position.x * m_cell_size, m_position.y * m_cell_size, m_cell_size, m_cell_size, BLACK); }
+void Food::draw() const { DrawRectangle(m_position.x * m_cell_size, m_position.y * m_cell_size, m_cell_size, m_cell_size, BLACK); }
 
 Vector2 Food::position() const { return m_position; }
 

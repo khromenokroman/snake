@@ -6,7 +6,7 @@ class Food {
     explicit Food(uint64_t cell_size, uint64_t cell_count);
     ~Food() = default;
 
-    void draw();
+    void draw() const;
     Vector2 position() const;
     void move_new_position();
 

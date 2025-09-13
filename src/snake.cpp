@@ -9,7 +9,9 @@ Snake::Snake(double interval_update, uint64_t cell_size, uint64_t cell_count)
 
     change_direction(Direction::RIGHT);
 }
+
 Snake::~Snake() { UnloadSound(m_game_over_sound); }
+
 void Snake::draw() {
     process_keymap_user();
     if (m_state == State::INCREASE) {
@@ -24,7 +26,9 @@ void Snake::draw() {
         DrawRectangleRounded(segment, 0.5, 6, BLACK);
     }
 }
+
 Vector2 Snake::head() const { return m_body.at(0); }
+
 Placement Snake::check_food_placement(Vector2 const& food) const {
     if (Vector2Equals(m_body.at(0), food)) {
         return Placement::BAD;
@@ -32,7 +36,9 @@ Placement Snake::check_food_placement(Vector2 const& food) const {
 
     return Placement::GOOD;
 }
+
 void Snake::change_state(State state) { m_state = state; }
+
 void Snake::move() {
     auto now = std::chrono::steady_clock::now();
     if (std::chrono::duration_cast<std::chrono::milliseconds>(now - m_last_time).count() > m_interval_update) {
@@ -56,7 +62,9 @@ void Snake::move() {
         m_state_keycap = StateKeyCap::UP;
     }
 }
+
 bool Snake::game_over() const { return m_game_over; }
+
 void Snake::change_direction(Direction direction) {
     switch (direction) {
         case Direction::UP:
@@ -75,6 +83,7 @@ void Snake::change_direction(Direction direction) {
             throw std::runtime_error("Unknown direction");
     }
 }
+
 void Snake::process_keymap_user() {
     if (m_state_keycap == StateKeyCap::DOWN) {
         return;
