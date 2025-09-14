@@ -35,6 +35,7 @@ int main() {
             ClearBackground(WHITE);
 
             DrawText("Old Snake! Start the game!", OFFSET - 5, 15, 40, BLACK);
+            DrawText(TextFormat("Score: %lu", game.get_score()), OFFSET - 5, OFFSET + CELL_SIZE * CELL_COUNT + 10, 40, BLACK);
 
             // Рисуем клетчатый фон
             for (int x = 0; x < CELL_COUNT; ++x) {
@@ -50,10 +51,10 @@ int main() {
             DrawRectangleLinesEx(Rectangle{OFFSET - 5, OFFSET - 5, CELL_SIZE * CELL_COUNT + 10, CELL_SIZE * CELL_COUNT + 10}, 5, BLACK);
 
             if (game.update() == StateGame::GAME_OVER) {
+                EndDrawing();
                 std::this_thread::sleep_for(std::chrono::seconds(3));
                 break;
             }
-            DrawText(TextFormat("Score: %lu", game.get_score()), OFFSET - 5, OFFSET + CELL_SIZE * CELL_COUNT + 10, 40, BLACK);
 
             EndDrawing();
         }
