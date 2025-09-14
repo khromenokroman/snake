@@ -48,19 +48,19 @@ void Snake::move() {
         m_body.push_front(Vector2Add(m_body.at(0), m_direction));
 
         // выход за поле
-        if (m_body.at(0).x == 0 || m_body.at(0).x == m_cell_count-1) {
-            PlaySound(m_game_over_sound);
+        if (m_body.at(0).x == -1 || m_body.at(0).x == m_cell_count) {
+            // PlaySound(m_game_over_sound);
             m_game_over = true;
         }
-        if (m_body.at(0).y == 0 || m_body.at(0).y == m_cell_count-1) {
-            PlaySound(m_game_over_sound);
+        if (m_body.at(0).y == -1 || m_body.at(0).y == m_cell_count) {
+            // PlaySound(m_game_over_sound);
             m_game_over = true;
         }
 
         // врезался сам в себя
         for (auto i = 2ull; i < m_body.size(); ++i) {
             if (Vector2Equals(m_body[i], m_body.at(0))) {
-                PlaySound(m_game_over_sound);
+                // PlaySound(m_game_over_sound);
                 m_game_over = true;
             }
         }
