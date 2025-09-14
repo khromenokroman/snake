@@ -22,6 +22,8 @@ add_definitions("-DVERSION_TWEAK=${PROJECT_VERSION_TWEAK}")
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
+configure_file(Version.in Version @ONLY)
+
 add_custom_target(version
         -DVERSION_MAJOR="${PROJECT_VERSION_MAJOR}"
         -DVERSION_MINOR="${PROJECT_VERSION_MINOR}"
